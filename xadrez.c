@@ -1,53 +1,96 @@
 #include <stdio.h>
 
-int main() {
-    int torre;
-    int bispo = 1;
-    int rainha = 1;
-
-    // Movimentação da Torre
-    printf("Movimentação da Torre:\n");
-    for (torre = 1; torre <= 5; torre++) {
-        printf("Direita: Casa %d\n", torre);
+// Função recursiva para movimentação da Torre
+// A Torre se move para a direita
+void moveTorre(int casa, int casasTotal) {
+    if (casa > casasTotal) {
+        return;
     }
-    printf("\n");
+    printf("Direita\n");
+    moveTorre(casa + 1, casasTotal);
+}
 
-    // Movimentação do Bispo
-    printf("Movimentação do Bispo:\n");
-    while (bispo <= 5)
-    {
-        printf("Cima + Direita: Casa %d\n", bispo);
-        bispo++;
+// Função recursiva para movimentação da Rainha
+// A Rainha se move para a esquerda
+void moveRainha(int casa, int casasTotal) {
+    if (casa > casasTotal) {
+        return;
     }
-    printf("\n");
+    printf("Esquerda\n");
+    moveRainha(casa + 1, casasTotal);
+}
 
-    // Movimentação da Rainha
-    printf("Movimentação da Rainha:\n");
-    do
-    {
-        printf("Esquerda: Casa %d\n", rainha);
-        rainha++;
-    } while (rainha <= 8);
-    printf("\n");
+// Função recursiva para movimentação do Bispo
+// O Bispo se move na diagonal (cima + direita)
+void moveBispo(int casa, int casasTotal) {
+    if (casa > casasTotal) {
+        return;
+    }
+    printf("Cima + Direita\n");
+    // printf("Direita\n");
+    moveBispo(casa + 1, casasTotal);
+}
 
-    // Movimentação do Cavalo (estruturas for e while - loop aninhado)
-    // Duas casas para baixo e uma para a esquerda
-    printf("Movimentação do Cavalo:\n");
-    int i = 1;
-    while (i <= 2) {
-        for (int j = 1; j <= 1; j++) {
-            printf("Baixo: Casa %d, Esquerda: Casa %d\n", i, j);
+// Função com loops aninhados para movimentação do Bispo
+// Loop externo controla o movimento vertical
+// Loop interno controla o movimento horizontal
+void moveBispoLoops(int linhas, int colunas) {
+    for (int i = 1; i <= linhas; i++) {
+        for (int j = 1; j <= colunas; j++) {
+            printf("Cima + Direita\n");
+            // printf("Direita\n");
         }
-        i++;
     }
+}
+
+// Função com loops complexos para movimentação do Cavalo
+// Movimento em L: duas casas para cima e uma para a direita
+void moveCavalo() {
+    int movimentos = 2;
+    int movimentosHorizontais = 1;
+    
+    for (int i = 1; i <= movimentos; i++) {
+        printf("Cima\n");
+    }
+    
+    for (int j = 1; j <= movimentosHorizontais; j++) {
+        if (j == movimentosHorizontais) {
+            printf("Direita\n");
+            break;
+        }
+    }
+}
+
+int main() {
+    int casasTotal = 5;
+    int casasTotalRainha = 8;
+    int linhas = 2;
+    int colunas = 3;
+
+    // Movimentação da Torre (recursividade)
+    printf("Movimentação da Torre:\n");
+    moveTorre(1, casasTotal);
     printf("\n");
 
-    // Nível Mestre - Funções Recursivas e Loops Aninhados
-    // Sugestão: Substitua as movimentações das peças por funções recursivas.
-    // Exemplo: Crie uma função recursiva para o movimento do Bispo.
+    // Movimentação do Bispo (recursividade)
+    printf("Movimentação do Bispo (Recursividade):\n");
+    moveBispo(1, casasTotal);
+    printf("\n");
 
-    // Sugestão: Implemente a movimentação do Cavalo utilizando loops com variáveis múltiplas e condições avançadas.
-    // Inclua o uso de continue e break dentro dos loops.
+    // Movimentação do Bispo (loops aninhados)
+    printf("Movimentação do Bispo (Loops Aninhados):\n");
+    moveBispoLoops(linhas, colunas);
+    printf("\n");
+
+    // Movimentação da Rainha (recursividade)
+    printf("Movimentação da Rainha:\n");
+    moveRainha(1, casasTotalRainha);
+    printf("\n");
+
+    // Movimentação do Cavalo (loops complexos)
+    printf("Movimentação do Cavalo:\n");
+    moveCavalo();
+    printf("\n");
 
     return 0;
 }
